@@ -2,6 +2,8 @@ const express = require('express');
 
 const cors = require('cors');
 
+const turmasRouter = require('./api/turmas');
+
 const API_PORT = 3000;
 const API_BASE = 'api';
 
@@ -11,6 +13,9 @@ const app = express();
 // Garante que possamos chamar o back end a partir de um front
 // em outra porta e/ou outro domínio/IP:
 app.use(cors());
+
+// Declara endpoints relacionados a turmas em `/api/turmas`:
+app.use(`/${API_BASE}/turmas`, turmasRouter);
 
 // Inicializa a aplicação:
 app.listen(API_PORT, () => {
