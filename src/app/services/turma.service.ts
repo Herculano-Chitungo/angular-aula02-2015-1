@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { map, Observable, of } from 'rxjs';
+import { map, Observable, of, Subject } from 'rxjs';
 
 import { Turma }      from '../models/turma';
 import { Disciplina } from '../models/disciplina';
@@ -80,6 +80,9 @@ const TURMAS = [
 })
 export class TurmaService {
 
+  private _turmaSelecionada$ = new Subject<Turma>;
+  public turmaSelecionada$ = this._turmaSelecionada$.asObservable();
+
   constructor(
   ) {
   }
@@ -100,6 +103,10 @@ export class TurmaService {
         ),
       ))
     );
+  }
+
+  public selecionarTurma(t: Turma) {
+    this._turmaSelecionada$.next(t);
   }
 
 }

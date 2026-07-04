@@ -1,0 +1,20 @@
+<div *ngIf="(turmaService.turmaSelecionada$ | async) as t">
+  <h1>Turma {{t.nome}}</h1>
+
+  <div>
+    <b>Disciplina:</b>
+    [{{t.disciplina.codigo}}] {{t.disciplina.nome}}
+  </div>
+  <div>
+    <b>Ano/período:</b>
+    {{t.ano}}-{{t.periodo}}
+  </div>
+  <div>
+    <h2>Alunos</h2>
+    <ul>
+      <li *ngFor="let a of t.alunos">
+        [{{a.codigo}}] {{a.nome}}
+      </li>
+    </ul>
+  </div>
+</div>
