@@ -1,4 +1,4 @@
-<div *ngIf="(turmaService.turmaSelecionada$ | async) as t">
+<div *ngIf="(turmaService.turmaSelecionada$ | async) as t; else semTurmaSelecionada">
   <h1>Turma {{t.nome}}</h1>
 
   <div>
@@ -18,3 +18,8 @@
     </ul>
   </div>
 </div>
+<ng-template #semTurmaSelecionada>
+  <div>
+    Selecione uma turma para exibir.
+  </div>
+</ng-template>
