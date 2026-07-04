@@ -1,8 +1,79 @@
 import { Injectable } from '@angular/core';
 
+import { map, Observable, of } from 'rxjs';
+
 import { Turma }      from '../models/turma';
 import { Disciplina } from '../models/disciplina';
 import { Aluno }      from '../models/aluno';
+
+const TURMAS = [
+  {
+    "_id": "abcabc",
+    "disciplina": {
+      "_id": "bcdbcd",
+      "codigo": 'WEB01',
+      "nome": 'Fundamentos de Desenvolvimento Web',
+    },
+    "ano": 2025,
+    "periodo": 1,
+    "alunos": [
+      {
+        "_id": "defdef",
+        "codigo": 111,
+        "nome": 'João Melo',
+      },
+      {
+        "_id": "eefdef",
+        "codigo": 112,
+        "nome": 'Paulo Siqueira',
+      },
+    ],
+  },
+  {
+    "_id": "abcabd",
+    "disciplina": {
+      "_id": "bcdbce",
+      "codigo": 'WEB11',
+      "nome": 'Versionamento de Código com Git',
+    },
+    "ano": 2025,
+    "periodo": 1,
+    "alunos": [
+      {
+        "_id": "eefdef",
+        "codigo": 112,
+        "nome": 'Paulo Siqueira',
+      },
+      {
+        "_id": "fefdef",
+        "codigo": 222,
+        "nome": 'Herculano Chitungo',
+      },
+    ],
+  },
+  {
+    "_id": "abcabe",
+    "disciplina": {
+      "_id": "bcdbcf",
+      "codigo": 'WEB15',
+      "nome": 'Angular',
+    },
+    "ano": 2025,
+    "periodo": 1,
+    "alunos": [
+      {
+        "_id": "defaaa",
+        "codigo": 333,
+        "nome": 'Lucas Garcia',
+      },
+      {
+        "_id": "defaab",
+        "codigo": 334,
+        "nome": 'Carolina Kita',
+      },
+    ],
+  },
+];
 
 @Injectable({
   providedIn: 'root'
@@ -13,45 +84,22 @@ export class TurmaService {
   ) {
   }
 
-  public getTurmas(): Turma[] {
-    return [
-      new Turma(
-        new Disciplina(
-          'WEB01',
-          'Fundamentos de Desenvolvimento Web',
+  public getTurmas(): Observable<Turma[]> {
+    return of(TURMAS).pipe(
+      map(arrTurmasCruas => arrTurmasCruas.map(
+        turmaCrua => new Turma(
+          new Disciplina(turmaCrua.disciplina.codigo, turmaCrua.disciplina.nome),
+          turmaCrua.ano,
+          turmaCrua.periodo,
+          turmaCrua.alunos.map(
+            alunoCru => new Aluno(
+              alunoCru.codigo,
+              alunoCru.nome,
+            )
+          ),
         ),
-        2025,
-        1,
-        [
-          new Aluno(111, 'João Melo'),
-          new Aluno(112, 'Paulo Siqueira'),
-        ],
-      ),
-      new Turma(
-        new Disciplina(
-          'WEB11',
-          'Versionamento de Código com Git',
-        ),
-        2025,
-        1,
-        [
-          new Aluno(112, 'Paulo Siqueira'),
-          new Aluno(222, 'Herculano Chitungo'),
-        ],
-      ),
-      new Turma(
-        new Disciplina(
-          'WEB15',
-          'Angular',
-        ),
-        2025,
-        1,
-        [
-          new Aluno(333, 'Lucas Garcia'),
-          new Aluno(334, 'Carolina Kita'),
-        ],
-      ),
-    ];
+      ))
+    );
   }
 
 }

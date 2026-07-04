@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule }      from '@angular/common';
+import { Observable } from 'rxjs';
 
 import { Turma } from '../../models/turma';
 import { TurmaService } from '../../services/turma.service';
@@ -16,6 +17,6 @@ import { TurmaService } from '../../services/turma.service';
 export class ListaTurmasComponent {
 
   public turmaService = inject(TurmaService);
-  public turmas: Turma[] = this.turmaService.getTurmas();
+  public turmas$: Observable<Turma[]> = this.turmaService.getTurmas();
 
 }

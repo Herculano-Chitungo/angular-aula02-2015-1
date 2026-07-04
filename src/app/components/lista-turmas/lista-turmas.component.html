@@ -1,5 +1,5 @@
 <button
-  *ngFor="let t of turmas"
+  *ngFor="let t of (turmas$ | async)"
 >
   {{ t.nome }}
 </button>
