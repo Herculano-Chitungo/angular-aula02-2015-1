@@ -7,7 +7,7 @@ export class Turma {
     public readonly disciplina: Disciplina,
     public readonly ano: number,
     public readonly periodo: number,
-    public alunos: Aluno,
+    public alunos: Aluno[],
   ) {
   }
 
